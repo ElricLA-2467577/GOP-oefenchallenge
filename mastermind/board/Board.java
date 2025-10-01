@@ -15,6 +15,10 @@ public class Board {
 
     }
 
+    public int getRowSize() {
+        return rowSize;
+    }
+
     public Row getComparisonToSolution() {
 
     }
