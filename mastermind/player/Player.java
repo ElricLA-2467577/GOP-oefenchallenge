@@ -15,5 +15,5 @@ public abstract class Player {
     }
 
     public abstract Row getGuess(Board board);
-    public abstract Row getStartCombination();
+    public abstract Row getStartCombination(Board board);
 }

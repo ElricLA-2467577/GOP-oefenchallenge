@@ -5,5 +5,5 @@ import mastermind.board.Row;
 
 public interface Strategy {
     public Row getGuess(Board board);
-    public Row getStartCombination();
+    public Row getStartCombination(Board board);
 }
