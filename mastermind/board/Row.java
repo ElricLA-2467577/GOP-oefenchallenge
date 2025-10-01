@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Row {
-    private ArrayList<Peg> m_row;
+    private Peg[] m_row;
 
-    public Row(ArrayList<Peg> pegs) {
-        m_row = pegs;
+    public Row(int rowSize) {
+        m_row = new Peg[rowSize];
     }
 
+    public void setColor(int index, Color color) {
+        m_row[index] = new Peg(color);
+    }
 }
