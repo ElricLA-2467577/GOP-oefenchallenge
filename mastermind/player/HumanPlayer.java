@@ -31,9 +31,9 @@ public class HumanPlayer extends Player {
         Row code = new Row(rowSize);
 
         for (int i = 0; i < rowSize; i++) {
-            Color color = m_view.getColorInput(i);
+            Color color = m_view.getColorInput(i, board);
             while (color.equals(Color.INVALID))
-                color = m_view.getColorInput(i);
+                color = m_view.getColorInput(i, board);
 
             code.setColor(i, color);
         }
@@ -43,7 +43,7 @@ public class HumanPlayer extends Player {
 
     /**
      * Gets the start combination that the breaker must guess
-     * @param board 
+     * @param board
      * @return Row that holds the set combination of this player (as maker)
      * @pre player is a maker
      * @pre board is not null
@@ -59,10 +59,10 @@ public class HumanPlayer extends Player {
         m_view.printInfo("Please set the code ("+board.getRowSize()+" colors):");
 
         for (int i = 0; i < board.getRowSize(); i++) {
-            Color color = m_view.getColorInput(i);
+            Color color = m_view.getColorInput(i, board);
             while (color.equals(Color.INVALID)) {
                 m_view.printInfo("Invalid color, try again.");
-                color = m_view.getColorInput(i);
+                color = m_view.getColorInput(i, board);
             }
 
             code.setColor(i, color);

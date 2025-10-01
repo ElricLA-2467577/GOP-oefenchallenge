@@ -1,3 +1,4 @@
+// @author Elric, Mathijs  - Group 13
 package mastermind.board;
 
 import java.util.ArrayList;
@@ -33,19 +34,34 @@ public class Board {
     public Row getSolution() { return m_solution; }
 
     public Row getComparisonToSolution(Row guess, Row solution) {
-        if (guess == null || solution == null) throw new IllegalArgumentException("guess/solution must be non-null");
-        int len = m_rowSize; Row result = new Row(len); boolean[] used = new boolean[len], exact = new boolean[len];
+        if (guess == null || solution == null)
+            throw new IllegalArgumentException("guess/solution must be non-null");
+        int len = m_rowSize;
+        Row result = new Row(len);
+
+        boolean[] used = new boolean[len];
+        boolean[] exact = new boolean[len];
+
         for (int i = 0; i < len; i++) {
             result.setColor(i, Color.INVALID);
             if (guess.getPeg(i).getColor() == solution.getPeg(i).getColor()) {
-                result.setColor(i, Color.RED); exact[i] = used[i] = true;
+                result.setColor(i, Color.RED);
+                exact[i] = used[i] = true;
             }
         }
-        for (int i = 0; i < len; i++)
-            if (!exact[i])
-                for (int j = 0; j < len; j++)
+
+        for (int i = 0; i < len; i++) {
+            if (!exact[i]) {
+                for (int j = 0; j < len; j++) {
                     if (!used[j] && guess.getPeg(i).getColor() == solution.getPeg(j).getColor()) {
-                    result.setColor(i, Color.WHITE); used[j] = true; break; }
+                        result.setColor(i, Color.WHITE);
+                        used[j] = true;
+                        break;
+                    }
+                }
+            }
+        }
+
         return result;
     }
 

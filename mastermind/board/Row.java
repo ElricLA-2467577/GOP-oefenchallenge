@@ -1,3 +1,5 @@
+// @author Mathijs - group 13
+
 package mastermind.board;
 
 import java.util.ArrayList;

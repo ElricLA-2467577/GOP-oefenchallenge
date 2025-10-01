@@ -1,3 +1,5 @@
+// @author Ellric,Mathijs - group 13
+
 package mastermind;
 
 import mastermind.board.Board;
@@ -27,6 +29,10 @@ public class MasterMindGame {
         m_board.setSolution(m_maker.getStartCombination(m_board));
     }
 
+    /**
+    * initialise breaker and maker players using user input
+    * @post m_breaker and m_maker are ass igned based on input
+    */
     private void initPlayers() {
         Strategy strategy = new RandomStrategy();
         Role humanRole = m_view.getHumanRoleInput();
@@ -41,14 +47,24 @@ public class MasterMindGame {
         }
     }
 
+    /**
+    * start the game loop  initializing the players and the board
+    * run the game until combination is guessed or
+    *
+    * @post Game loop runs until breker wins or no more guesses
+    * @post solution is printed if guesses ran out
+    */
     public void start() {
         init();
         if (m_isBreakerHuman) m_view.printInfo("Computer has set the code.");
         while (m_guessesLeft > 0) {
             iterateGameLoop();
         }
-        m_view.printInfo("Out of guesses — Maker wins. Solution was:");
-        m_view.printRow(m_board.getSolution());
+
+        if (m_guessesLeft != -1) {
+            m_view.printInfo("Out of guesses — Maker wins. Solution was:");
+            m_view.printRow(m_board.getSolution());
+        }
     }
 
     private void iterateGameLoop() {
@@ -56,9 +72,21 @@ public class MasterMindGame {
         Row guess = m_breaker.getGuess(m_board);
         Row feedback = m_board.getComparisonToSolution(guess, m_board.getSolution());
         m_board.addGuess(guess);
-        if (!m_isBreakerHuman) { m_view.printInfo("Computer guessed:"); m_view.printRow(guess); }
-        m_view.printInfo("Feedback:"); m_view.printRow(feedback);
-        if (m_board.isRightCombination(feedback)) { m_view.printInfo("Breaker wins!"); return; }
+
+        if (!m_isBreakerHuman) {
+            m_view.printInfo("Computer guessed:");
+            m_view.printRow(guess);
+        }
+
+        m_view.printInfo("Feedback:");
+        m_view.printRow(feedback);
+
+        if (m_board.isRightCombination(feedback)) {
+            m_guessesLeft = -1; // win
+            m_view.printInfo("Breaker wins!");
+            return;
+        }
+
         m_guessesLeft--;
     }
 }

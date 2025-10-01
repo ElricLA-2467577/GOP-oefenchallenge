@@ -1,3 +1,4 @@
+// @author Mathijs - group 13
 package mastermind.strategy;
 
 import mastermind.board.Board;

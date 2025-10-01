@@ -1,10 +1,12 @@
+// @author Mathijs, Elric - group 13
 package mastermind;
 
 import mastermind.board.Board;
 import mastermind.board.Color;
-import mastermind.board.Peg;
 import mastermind.board.Row;
 import mastermind.player.Role;
+
+import java.text.ParseException;
 
 public class GameView {
 
@@ -22,7 +24,7 @@ public class GameView {
     public void printColorLn(Color color) {
         System.out.println(color.toString());
     }
-    
+
 
     public void printAllAvailableColors(int limit) {
         for (int i = 0; i < limit; i++) {
@@ -39,12 +41,15 @@ public class GameView {
         System.out.print("\n");
     }
 
-    public Color getColorInput(int col) {
+    public Color getColorInput(int col, Board board) {
         System.out.print("Enter a color for column [" + col + "]: ");
         String input = System.console().readLine();
         try {
-            return Color.fromString(input);
-        } catch (IllegalArgumentException e) {
+            Color result = Color.fromString(input);
+            if (result.getId() >= board.getColorLimit())
+                throw new IllegalStateException("Color invalid.");
+            return result;
+        } catch (Exception e) {
             return Color.INVALID;
         }
     }
@@ -64,7 +69,11 @@ public class GameView {
 
     public int getIntInput(String question) {
         System.out.print(question + " [0<]:");
-        return Integer.parseInt(System.console().readLine());
+        try {
+            return Integer.parseInt(System.console().readLine());
+        } catch (Exception e) {
+            return -1;
+        }
     }
 
 
