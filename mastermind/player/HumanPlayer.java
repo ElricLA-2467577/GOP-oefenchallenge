@@ -1,10 +1,11 @@
 package mastermind.player;
 
+import mastermind.GameView;
 import mastermind.board.Board;
 import mastermind.board.Row;
 
 public class HumanPlayer extends Player {
-    public HumanPlayer(Role role) {
+    public HumanPlayer(Role role, GameView view) {
         super(role);
     }
 
